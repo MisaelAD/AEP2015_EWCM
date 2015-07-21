@@ -69,6 +69,7 @@
 /* ---------------------------------------- */
 void windowlifter_UP(void);
 void windowlifter_DOWN(void);
+void windowlifter_PINCH(void);
 
 /* Functions prototypes */
 
@@ -77,7 +78,14 @@ void windowlifter_DOWN(void);
 
 
 /* Exported defines */
-
+#define WINDOW_IDLE			0
+#define WINDOW_AUTO_UP 		1
+#define WINDOW_AUTO_DOWN 	2
+#define WINDOW_MANUAL_UP 	3
+#define WINDOW_MANUAL_DOWN 	4
+#define PINCH_VALID			5
+#define PINCH_OPEN			6
+#define PINCH_IDLE			7
 
 #endif
 

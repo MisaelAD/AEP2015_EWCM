@@ -5,7 +5,7 @@
 /*============================================================================*
 * C Include:        scheduler_Tasks.h
 * Instance:         RPL_1
-* %version:         1.2
+* %version:         1.3
 * %created_by:      Misael Alvarez Domínguez
 * %date_created:    Monday, July 13, 2015
 *=============================================================================*/
@@ -23,6 +23,7 @@
 /*  1.1      | 13/07/2015  |File added to complete 		   | Misael AD        */
 /*        	 |   		   |scheduler structure 		   |  				  */
 /*  1.2      | 16/07/2015  |Periodic tasks                 | Misael AD        */
+/*  1.3      | 21/07/2015  |Buttons & EWCM state machines  | Misael AD        */
 /*============================================================================*/
 
 #ifndef SCHEDULER_TASKS_H                               /* To avoid double inclusion */
@@ -74,12 +75,12 @@ void scheduler_10ms(void);
 void scheduler_50ms(void);
 void scheduler_100ms(void);
 
-void SchM_Task3p125ms(void);
-void SchM_Task6p25ms(void);
-void SchM_Task12p25ms(void);
-void SchM_Task25ms(void);
-void SchM_Task50ms(void);
-void SchM_Task100ms(void);
+void SchM_Task1p25ms(void);
+void SchM_Task2p5ms(void);
+void SchM_Task5ms(void);
+void SchM_Task10ms(void);
+void SchM_Task20ms(void);
+void SchM_Task40ms(void);
 
 /* Functions prototypes */
 

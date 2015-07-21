@@ -106,7 +106,7 @@
  *  Return               :	Inverted value from On-board S3
  *  Critical/explanation :	No
  **************************************************************/
- uint8_t Switch_UP(void)
+ T_UBYTE Switch_UP(void)
 {
 	return !S3;
 }
@@ -118,7 +118,7 @@
  *  Return               :	Inverted value from On-board S4
  *  Critical/explanation :	No
  **************************************************************/
-uint8_t Switch_DOWN(void)
+T_UBYTE Switch_DOWN(void)
 {
 	return !S4;
 }
@@ -130,7 +130,7 @@ uint8_t Switch_DOWN(void)
  *  Return               :	Inverted value from On-board S1
  *  Critical/explanation :	No
  **************************************************************/
-uint8_t Switch_Pinch(void)
+T_UBYTE Switch_Pinch(void)
 {
 	return !S1;
 }
@@ -142,9 +142,9 @@ uint8_t Switch_Pinch(void)
  *  Return               :	AND of UP input and DOWN input
  *  Critical/explanation :	No
  **************************************************************/
-uint8_t Switch_Combination(void)
+T_UBYTE Switch_Combination(void)
 {
-	uint8_t SC;
-	SC = (Switch_UP()) & (Switch_DOWN());
+	T_UBYTE SC;
+	SC = (Switch_UP()) ^ (Switch_DOWN());
 	return SC;
 }

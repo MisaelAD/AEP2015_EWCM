@@ -56,7 +56,7 @@
 /*======================================================*/ 
 /* BYTE RAM variables */
 T_SBYTE  rsw_WindowPosition = CLOSED;		/* Initial window state: CLOSED */
-static T_SBYTE	rsb_WindowState;
+extern T_SBYTE	rsb_WindowState;
 /* WORD RAM variables */
 
 
@@ -74,8 +74,6 @@ static T_SBYTE	rsb_WindowState;
 
 #define ATOMIC_ENTRY	asm(" wrteei 0")	/* Atomic code section entry */
 #define ATOMIC_EXIT		asm(" wrteei 1")	/* Atomic code section exit */
-
-#define WINDOW_IDLE	(rsb_WindowState = 0)	/* Macro prepared for window idle state */
 
 
 /* Private functions prototypes */
@@ -115,7 +113,7 @@ void windowlifter_UP(void)
 	{
 		LEDs_Off();
 		rsw_WindowPosition = CLOSED;
-		WINDOW_IDLE;
+		rsb_WindowState = WINDOW_IDLE;
 	}
 	else
 	{
@@ -138,7 +136,30 @@ void windowlifter_DOWN(void)
 	{
 		LEDs_Off();
 		rsw_WindowPosition = OPENED;
-		WINDOW_IDLE;
+		rsb_WindowState = WINDOW_IDLE;
+	}
+	else
+	{
+		/* Do nothing */
+	}
+}
+
+/**************************************************************
+ *  Name                 : windowlifter_PINCH
+ *  Description          :	Moves down the window
+ *  Parameters           :  Void
+ *  Return               :	Void
+ *  Critical/explanation :  No
+ **************************************************************/
+void windowlifter_PINCH(void)
+{
+	LED_DOWN();
+	rsw_WindowPosition--;
+	if(rsw_WindowPosition <= OPENED)
+	{
+		LEDs_Off();
+		rsw_WindowPosition = OPENED;
+		rsb_WindowState = PINCH_IDLE;
 	}
 	else
 	{

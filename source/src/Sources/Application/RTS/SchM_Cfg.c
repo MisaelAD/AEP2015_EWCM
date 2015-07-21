@@ -47,12 +47,12 @@
 const SchTaskDescriptorType SchTaskDescConfig[] = 
 {
 	  /* Offset / Mask / Task ID / Function Ptr */
-	{	0,	MASK_3P125MS,	TASK_3P125MS,	&SchM_Task3p125ms	},
-	{	1, 	MASK_6P25MS,  	TASK_6P25MS, 	&SchM_Task6p25ms	},
-	{	2, 	MASK_12P5MS,  	TASK_12P5MS, 	&SchM_Task12p25ms	},
-	{	3, 	MASK_25MS, 	 	TASK_25MS,		&SchM_Task25ms		},
-	{	5, 	MASK_50MS, 	 	TASK_50MS, 		&SchM_Task50ms		},
-	{	6, 	MASK_100MS, 	TASK_100MS, 	&SchM_Task100ms		}
+	{	0,	MASK_1P25MS,	TASK_3P125MS,	&SchM_Task1p25ms	},
+	{	1, 	MASK_2P5MS,  	TASK_6P25MS, 	&SchM_Task2p5ms		},
+	{	2, 	MASK_5MS,  		TASK_12P5MS, 	&SchM_Task5ms		},
+	{	3, 	MASK_10MS, 	 	TASK_25MS,		&SchM_Task10ms		},
+	{	5, 	MASK_20MS, 	 	TASK_50MS, 		&SchM_Task20ms		},
+	{	6, 	MASK_40MS, 		TASK_100MS, 	&SchM_Task40ms		}
 };
 
 const SchConfigType SchConfig = 

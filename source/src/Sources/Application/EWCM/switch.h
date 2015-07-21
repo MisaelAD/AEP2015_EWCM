@@ -68,10 +68,10 @@
 
 /* Exported functions prototypes and macros */
 /* ---------------------------------------- */
-uint8_t Switch_UP(void);
-uint8_t Switch_DOWN(void);
-uint8_t Switch_Pinch(void);
-uint8_t Switch_Combination(void);
+T_UBYTE Switch_UP(void);
+T_UBYTE Switch_DOWN(void);
+T_UBYTE Switch_Pinch(void);
+T_UBYTE Switch_Combination(void);
 
 /* Functions prototypes */
 
@@ -80,7 +80,10 @@ uint8_t Switch_Combination(void);
 
 
 /* Exported defines */
-
+#define SWITCH_IDLE			0
+#define	SWITCH_VALID_DOWN	1
+#define	SWITCH_VALID_UP		2
+#define SWITCH_EXIT			3
 
 #endif
 
