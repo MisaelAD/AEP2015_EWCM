@@ -68,9 +68,7 @@
 
 /* Exported functions prototypes and macros */
 /* ---------------------------------------- */
-T_UBYTE Switch_UP(void);
-T_UBYTE Switch_DOWN(void);
-T_UBYTE Switch_Pinch(void);
+T_UBYTE Switch_Read(T_UBYTE pin);
 T_UBYTE Switch_Combination(void);
 
 /* Functions prototypes */
@@ -83,7 +81,11 @@ T_UBYTE Switch_Combination(void);
 #define SWITCH_IDLE			0
 #define	SWITCH_VALID_DOWN	1
 #define	SWITCH_VALID_UP		2
-#define SWITCH_EXIT			3
+#define SWITCH_MOVING		3
+
+#define PINCH	64
+#define UP		66
+#define DOWN	67
 
 #endif
 

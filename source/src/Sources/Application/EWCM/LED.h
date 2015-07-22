@@ -73,8 +73,6 @@ void LED_UP(void);
 void LED_DOWN(void);
 void LEDs_Off(void);
 
-void LED_T(T_UWORD pin);
-
 /* Functions prototypes */
 
 

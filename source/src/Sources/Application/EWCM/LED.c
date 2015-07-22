@@ -5,7 +5,7 @@
 /*============================================================================*
 * C Source:         LED.c
 * Instance:         RPL_1
-* %version:         1.1
+* %version:         1.2
 * %created_by:      Misael Alvarez Domínguez
 * %date_created:    Monday, July 13, 2015
 *=============================================================================*/
@@ -21,6 +21,7 @@
 /*----------------------------------------------------------------------------*/
 /*  1.0      | DD/MM/YYYY  |                               | Mr. Template     */
 /*  1.1      | 13/07/2015  |C file template implementation | Misael AD        */
+/*  1.2      | 22/07/2015  |LED_[UP & DOWN] function update| Misael AD        */
 /*============================================================================*/
 
 /* Includes */
@@ -66,11 +67,9 @@
 #define LEDB SIU.GPDO[10].R
 #define LEDG SIU.GPDO[11].R
 
-	/* On-board LED states */
-#define LED_ON  0
-#define LED_OFF 1
 
-
+#define ON	1
+#define OFF 0
 /* Private functions prototypes */
 /* ---------------------------- */
 
@@ -114,14 +113,14 @@
  **************************************************************/
 void LED_WindowLifter(int8_t position)
 {
-	int8_t i;
+	T_SBYTE i;
 	for(i=0; i<position; i++)	/*Turn on LEDs from 0 to actual position*/
 	{
-		SIU.GPDO[i].R = 1;
+		SIU.GPDO[i].R = ON;
 	}
 	for(i=i; i<10; i++)		/*Turn off LEDs from position to fully closed*/
 	{
-		SIU.GPDO[i].R = 0;
+		SIU.GPDO[i].R = OFF;
 	}
 }
 
@@ -134,7 +133,8 @@ void LED_WindowLifter(int8_t position)
  **************************************************************/
 void LED_UP(void)
 {
-	LEDB = 1;
+	LEDB = ON;
+	LEDG = OFF;
 }
 
 /**************************************************************
@@ -146,7 +146,8 @@ void LED_UP(void)
  **************************************************************/
 void LED_DOWN(void)
 {
-	LEDG = 1;
+	LEDB = OFF;
+	LEDG = ON;
 }
 
 /**************************************************************
@@ -158,16 +159,6 @@ void LED_DOWN(void)
  **************************************************************/
 void LEDs_Off(void)
 {
-	LEDB = 0;
-	LEDG = 0;
-	
-	SIU.GPDO[LED1].R = LED_OFF;
-	SIU.GPDO[LED2].R = LED_OFF;
-	SIU.GPDO[LED3].R = LED_OFF;
-	SIU.GPDO[LED4].R = LED_OFF;
-}
-
-void LED_T(T_UWORD pin)
-{
-	SIU.GPDO[pin].R ^= 1;
+	LEDB = OFF;
+	LEDG = OFF;
 }

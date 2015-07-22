@@ -56,8 +56,7 @@ int main(void)
 	//MemAllocInit(&MemAllocConfig);
 	
 	/*Initialize LEDs on TRK-MPC560xB board */
-	init_OnBoardLEDs();
-	LEDs_Off();
+	
 	init_OnBoardPushButtons();
 	init_LEDBar();
 	

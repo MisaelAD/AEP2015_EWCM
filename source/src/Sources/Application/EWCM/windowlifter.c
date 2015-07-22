@@ -29,7 +29,6 @@
 #include "windowlifter.h"
 
 #include "LED.h"
-#include "delay.h"
 
 /* Functions macros, constants, types and datas		    */
 /* ---------------------------------------------------- */
@@ -68,13 +67,6 @@ extern T_SBYTE	rsb_WindowState;
 /*======================================================*/ 
 
 /* Private defines */
-
-#define ValidationPeriod	(T_SWORD)10
-#define ValidationClear		(T_SWORD)0
-
-#define ATOMIC_ENTRY	asm(" wrteei 0")	/* Atomic code section entry */
-#define ATOMIC_EXIT		asm(" wrteei 1")	/* Atomic code section exit */
-
 
 /* Private functions prototypes */
 /* ---------------------------- */

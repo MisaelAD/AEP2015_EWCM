@@ -63,10 +63,6 @@
 
 /* Private defines */
 /* Push buttons pins */
-#define S1 SIU.GPDI[64].R
-#define S2 SIU.GPDI[65].R
-#define S3 SIU.GPDI[66].R
-#define S4 SIU.GPDI[67].R
 
 /* Private functions prototypes */
 /* ---------------------------- */
@@ -100,51 +96,27 @@
 /* Exported functions */
 /* ------------------ */
 /**************************************************************
- *  Name                 :	Switch_UP
- *  Description          :	Reads the switch UP input
+ *  Name                 :	Switch_Read
+ *  Description          :	Reads an input pin
  *  Parameters           :	None
- *  Return               :	Inverted value from On-board S3
+ *  Return               :	Returns input pin value
  *  Critical/explanation :	No
  **************************************************************/
- T_UBYTE Switch_UP(void)
+ T_UBYTE Switch_Read(T_UBYTE pin)
 {
-	return !S3;
-}
-
-/**************************************************************
- *  Name                 :	Switch_DOWN
- *  Description          :	Reads the switch DOWN input
- *  Parameters           :	None
- *  Return               :	Inverted value from On-board S4
- *  Critical/explanation :	No
- **************************************************************/
-T_UBYTE Switch_DOWN(void)
-{
-	return !S4;
-}
-
-/**************************************************************
- *  Name                 :	Switch_Pinch
- *  Description          :	Reads the switch PINCH input
- *  Parameters           :	None
- *  Return               :	Inverted value from On-board S1
- *  Critical/explanation :	No
- **************************************************************/
-T_UBYTE Switch_Pinch(void)
-{
-	return !S1;
+	return SIU.GPDI[pin].R;
 }
 
 /**************************************************************
  *  Name                 :	Switch_Combination
  *  Description          :	Reads UP & DOWN input
  *  Parameters           :	None
- *  Return               :	AND of UP input and DOWN input
+ *  Return               :	UP xnor DOWN. True value when both are equal.
  *  Critical/explanation :	No
  **************************************************************/
 T_UBYTE Switch_Combination(void)
 {
 	T_UBYTE SC;
-	SC = (Switch_UP()) ^ (Switch_DOWN());
-	return SC;
+	SC = (Switch_Read(UP)) ^ (Switch_Read(DOWN));
+	return !SC;
 }

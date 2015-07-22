@@ -5,7 +5,7 @@
 /*============================================================================*
 * C Source:         scheduler_Tasks.c
 * Instance:         RPL_1
-* %version:         1.3
+* %version:         1.5
 * %created_by:      Misael Alvarez Domínguez
 * %date_created:    Monday, July 13, 2015
 *=============================================================================*/
@@ -24,6 +24,8 @@
 /*        	 |   		   |scheduler structure 		   |  				  */
 /*  1.2      | 16/07/2015  |Periodic tasks                 | Misael AD        */
 /*  1.3      | 21/07/2015  |Buttons & EWCM state machines  | Misael AD        */
+/*  1.4      | 21/07/2015  |Operation modes issue fixed	   | Misael AD        */
+/*  1.5      | 25/07/2015  |AntiPinch functionality finish | Misael AD        */
 /*============================================================================*/
 
 /* Includes */
@@ -59,6 +61,8 @@ T_SBYTE	rsb_ButtonState = SWITCH_IDLE;
 extern T_SBYTE  rsw_WindowPosition;
 
 T_UBYTE	rub_Period;
+T_UBYTE rub_PinchTimer;
+T_UBYTE	rub_PinchFlag;
 
 /* WORD RAM variables */
 T_UWORD	rwb_ValidationTime;
@@ -72,13 +76,13 @@ T_UWORD	rwb_ValidationTime;
 
 /* Private defines */
 #define CLEAR		0
-#define Ticks_8		8
-#define Ticks_400	400
-#define TICKS_125	125
+#define SET			1
+#define	TICKS(ticks)	(ticks)
 
 /* Private functions prototypes */
 /* ---------------------------- */
-
+void VerifyPinch(void);
+void TriggerAntiPinch(void);
 
 /* Exported functions prototypes */
 /* ----------------------------- */
@@ -96,13 +100,37 @@ T_UWORD	rwb_ValidationTime;
 
 /* Private functions */
 /* ----------------- */
+void VerifyPinch(void)
+{
+	if(rub_PinchTimer >= TICKS(4))
+	{
+		rub_PinchFlag = SET;
+		rub_PinchTimer=CLEAR;
+	}
+	else
+	{
+		/* Do nothing */
+	}
+}
 
+void TriggerAntiPinch(void)
+{
+	if(rub_PinchFlag == SET)
+	{
+		windowlifter_PINCH();
+		rsb_WindowState=PINCH_OPEN;
+	}
+	else
+	{
+		/* Do nothing */
+	}
+}
 
 /* Exported functions */
 /* ------------------ */
 /**************************************************************
  *  Name                 :	SchM_Task1p25ms
- *  Description          :	Task activated every 3.125ms
+ *  Description          :	Task activated every 1.25ms
  *  Parameters           :  [Input, Output, Input / output]
  *  Return               :
  *  Critical/explanation :    [yes / No]
@@ -112,17 +140,17 @@ void SchM_Task1p25ms(void)
 	switch(rsb_ButtonState)
 	{
 		case SWITCH_IDLE:
-				if(!Switch_Combination())
+				if(Switch_Combination())
 				{
 					/* None pressed or both pressed */
 				}
-				else if(Switch_UP())
+				else if(Switch_Read(UP))
 				{
-					rsb_WindowState = SWITCH_VALID_UP;
+					rsb_ButtonState = SWITCH_VALID_UP;
 				}
-				else if(Switch_DOWN())
+				else if(Switch_Read(DOWN))
 				{
-					rsb_WindowState = SWITCH_VALID_DOWN;
+					rsb_ButtonState = SWITCH_VALID_DOWN;
 				}
 				else
 				{
@@ -130,17 +158,17 @@ void SchM_Task1p25ms(void)
 				}
 			break;
 		case SWITCH_VALID_UP:
-				if(Switch_UP())
+				if(Switch_Read(UP))
 				{
 					rwb_ValidationTime++;
-					if(rwb_ValidationTime == Ticks_8)
+					if(rwb_ValidationTime == TICKS(8))
 					{
 						rsb_WindowState=WINDOW_AUTO_UP;
 					}
-					else if(rwb_ValidationTime >= Ticks_400)
+					else if(rwb_ValidationTime >= TICKS(400))
 					{
 						rsb_WindowState=WINDOW_MANUAL_UP;
-						rsb_ButtonState=SWITCH_EXIT;
+						rsb_ButtonState=SWITCH_MOVING;
 					}
 					else
 					{
@@ -149,29 +177,29 @@ void SchM_Task1p25ms(void)
 				}
 				else
 				{
-					if(rwb_ValidationTime < Ticks_8)
+					if((rwb_ValidationTime < TICKS(8)) || (rsb_WindowState == WINDOW_AUTO_UP))
 					{
 						rsb_ButtonState=SWITCH_IDLE;
 					}
 					else
 					{
-						rsb_ButtonState=SWITCH_EXIT;
+						rsb_ButtonState=SWITCH_MOVING;
 					}
 					rwb_ValidationTime=CLEAR;
 				}
 			break;
 		case SWITCH_VALID_DOWN:
-				if(Switch_DOWN())
+				if(Switch_Read(DOWN))
 				{
 					rwb_ValidationTime++;
-					if(rwb_ValidationTime == Ticks_8)
+					if(rwb_ValidationTime == TICKS(8))
 					{
 						rsb_WindowState=WINDOW_AUTO_DOWN;
 					}
-					else if(rwb_ValidationTime >= Ticks_400)
+					else if(rwb_ValidationTime >= TICKS(400))
 					{
 						rsb_WindowState=WINDOW_MANUAL_DOWN;
-						rsb_ButtonState=SWITCH_EXIT;
+						rsb_ButtonState=SWITCH_MOVING;
 					}
 					else
 					{
@@ -180,31 +208,19 @@ void SchM_Task1p25ms(void)
 				}
 				else
 				{
-					if(rwb_ValidationTime < Ticks_8)
+					if((rwb_ValidationTime < TICKS(8)) || (rsb_WindowState == WINDOW_AUTO_DOWN))
 					{
 						rsb_ButtonState=SWITCH_IDLE;
 					}
 					else
 					{
-						rsb_ButtonState=SWITCH_EXIT;
+						rsb_ButtonState=SWITCH_MOVING;
 					}
 					rwb_ValidationTime=CLEAR;
 				}
 			break;
-		case SWITCH_EXIT:
-				if(Switch_Pinch())
-				{
-					rwb_ValidationTime++;
-				}
-				else if(rwb_ValidationTime>=Ticks_8)
-				{
-					rsb_WindowState=PINCH_OPEN;
-					rwb_ValidationTime=CLEAR;
-				}
-				else
-				{
-					/* Do nothing */
-				}
+		case SWITCH_MOVING:
+				rwb_ValidationTime=CLEAR;
 			break;
 		default:
 		break;
@@ -213,26 +229,35 @@ void SchM_Task1p25ms(void)
 
 /**************************************************************
  *  Name                 :	SchM_Task2p5ms
- *  Description          :	Task activated every 6.25ms
+ *  Description          :	Task activated every 2.5ms
  *  Parameters           :  [Input, Output, Input / output]
  *  Return               :
  *  Critical/explanation :    [yes / No]
  **************************************************************/
 void SchM_Task2p5ms(void)
 {
-	LED_WindowLifter(rsw_WindowPosition);
+	if(Switch_Read(PINCH))
+	{
+		rub_PinchTimer++;
+		VerifyPinch();
+	}
+	else
+	{
+		VerifyPinch();
+		rub_PinchTimer=CLEAR;
+	}
 }
 
 /**************************************************************
  *  Name                 :	SchM_Task5ms
- *  Description          :	Task activated every 12.25ms
+ *  Description          :	Task activated every 5ms
  *  Parameters           :  [Input, Output, Input / output]
  *  Return               :
  *  Critical/explanation :    [yes / No]
  **************************************************************/
 void SchM_Task5ms(void)
 {
-
+	
 }
 
 /**************************************************************
@@ -256,7 +281,7 @@ void SchM_Task10ms(void)
  **************************************************************/
 void SchM_Task20ms(void)
 {
-	
+	LED_WindowLifter(rsw_WindowPosition);
 }
 
 /**************************************************************
@@ -274,36 +299,42 @@ void SchM_Task40ms(void)
 		case WINDOW_IDLE:
 				rub_Period=0;
 				rsb_ButtonState=SWITCH_IDLE;
+				LEDs_Off();
 			break;
+			
 		case WINDOW_AUTO_UP:
-				if(rub_Period==Ticks_8)
+				if(rub_Period==TICKS(10))
 				{
+					rub_Period=CLEAR;
 					windowlifter_UP();
-					rub_Period=CLEAR;
+					TriggerAntiPinch();
 				}
 				else
 				{
 					/* Do nothing */
 				}
 			break;
+			
 		case WINDOW_AUTO_DOWN:
-				if(rub_Period==Ticks_8)
+				if(rub_Period==TICKS(10))
 				{
-					windowlifter_DOWN();
 					rub_Period=CLEAR;
+					windowlifter_DOWN();
 				}
 				else
 				{
 					/* Do nothing */
 				}
 			break;
+			
 		case WINDOW_MANUAL_UP:
-				if(rub_Period==Ticks_8)
+				if(rub_Period==TICKS(10))
 				{
 					rub_Period=CLEAR;
-					if(Switch_UP())
+					if(Switch_Read(UP))
 					{
 						windowlifter_UP();
+						TriggerAntiPinch();
 					}
 					else
 					{
@@ -315,11 +346,12 @@ void SchM_Task40ms(void)
 					/* Do nothing */
 				}
 			break;
+			
 		case WINDOW_MANUAL_DOWN:
-				if(rub_Period==Ticks_8)
+				if(rub_Period==TICKS(10))
 				{
 					rub_Period=CLEAR;
-					if(Switch_DOWN())
+					if(Switch_Read(DOWN))
 					{
 						windowlifter_DOWN();
 					}
@@ -333,21 +365,24 @@ void SchM_Task40ms(void)
 					/* Do nothing */
 				}
 			break;
+			
 		case PINCH_OPEN:
-				if(rub_Period==Ticks_8)
+				if(rub_Period==TICKS(10))
 				{
-					windowlifter_PINCH();
 					rub_Period=CLEAR;
+					windowlifter_PINCH();
 				}
 				else
 				{
 					/* Do nothing */
 				}
 			break;
+			
 		case PINCH_IDLE:
-				if(rub_Period>=TICKS_125)
+				if(rub_Period>=TICKS(125))
 				{
 					rub_Period=CLEAR;
+					rub_PinchFlag=CLEAR;
 					rsb_WindowState=WINDOW_IDLE;
 				}
 				else
@@ -355,6 +390,7 @@ void SchM_Task40ms(void)
 					/* Do nothing */
 				}
 			break;
+			
 		default:
 		break;
 	}
