@@ -70,11 +70,6 @@
 
 /* Exported functions prototypes and macros */
 /* ---------------------------------------- */
-void scheduler_5ms(void);
-void scheduler_10ms(void);
-void scheduler_50ms(void);
-void scheduler_100ms(void);
-
 void SchM_Task1p25ms(void);
 void SchM_Task2p5ms(void);
 void SchM_Task5ms(void);

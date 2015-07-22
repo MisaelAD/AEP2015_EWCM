@@ -27,7 +27,6 @@
 /* Includes */
 /* -------- */
 #include "windowlifter.h"
-
 #include "LED.h"
 
 /* Functions macros, constants, types and datas		    */
@@ -90,6 +89,8 @@ extern T_SBYTE	rsb_WindowState;
 /* Private functions */
 /* ----------------- */
 
+/* Exported functions */
+/* ------------------ */
 /**************************************************************
  *  Name                 : windowlifter_UP
  *  Description          :	Moves up the window
@@ -158,13 +159,3 @@ void windowlifter_PINCH(void)
 		/* Do nothing */
 	}
 }
-
-/* Exported functions */
-/* ------------------ */
-/**************************************************************
- *  Name                 :	export_func
- *  Description          :
- *  Parameters           :  [Input, Output, Input / output]
- *  Return               :
- *  Critical/explanation :    [yes / No]
- **************************************************************/

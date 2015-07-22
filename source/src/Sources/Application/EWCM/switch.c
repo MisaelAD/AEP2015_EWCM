@@ -102,7 +102,7 @@
  *  Return               :	Returns input pin value
  *  Critical/explanation :	No
  **************************************************************/
- T_UBYTE Switch_Read(T_UBYTE pin)
+T_UBYTE Switch_Read(T_UBYTE pin)
 {
 	return SIU.GPDI[pin].R;
 }

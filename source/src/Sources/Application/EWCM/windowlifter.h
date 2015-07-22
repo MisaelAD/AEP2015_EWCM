@@ -83,9 +83,8 @@ void windowlifter_PINCH(void);
 #define WINDOW_AUTO_DOWN 	2
 #define WINDOW_MANUAL_UP 	3
 #define WINDOW_MANUAL_DOWN 	4
-#define PINCH_VALID			5
-#define PINCH_OPEN			6
-#define PINCH_IDLE			7
+#define PINCH_OPEN			5
+#define PINCH_IDLE			6
 
 #endif
 

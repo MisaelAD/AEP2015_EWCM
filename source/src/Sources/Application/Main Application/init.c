@@ -77,10 +77,6 @@
 #define PortE6 SIU.PCR[70].R 
 #define PortE7 SIU.PCR[71].R
 
-	/* ADC Pins */
-#define PortB4 SIU.PCR[20].R	//ADC0_P0 
-
-
 /* Private functions prototypes */
 /* ---------------------------- */
 
@@ -122,8 +118,8 @@
  **************************************************************/
 void disableWatchdog(void) 
 {
-  SWT.SR.R = 0x0000c520;     /* Write keys to clear soft lock bit */
-  SWT.SR.R = 0x0000d928; 
+  SWT.SR.R = 0x0000C520;     /* Write keys to clear soft lock bit */
+  SWT.SR.R = 0x0000D928; 
   SWT.CR.R = 0x8000010A;     /* Clear watchdog enable (WEN) */
 }
 
@@ -155,22 +151,6 @@ void init_OnBoardPushButtons(void)
   PortE1 = Input;	/*S2*/
   PortE2 = Input;	/*S3*/
   PortE3 = Input;	/*S4*/	
-}
-
-/**************************************************************
- *  Name                 :	init_ADC0_P0
- *  Description          :	Initialize ADC0_P0
- *  Parameters           :	None
- *  Return               :
- *  Critical/explanation :	No
- **************************************************************/
-void init_ADC0_P0(void)
-{
-  PortB4 = Analog;				/* Initialize PB[4] as ADC0_P0 */
-  ADC_0.MCR.R = 0x20000000;   	/* Initialize ADC0 for scan mode */
-  ADC_0.NCMR0.R = 1;            /* Select ADC0_P0 input for conversion */
-  ADC_0.CTR0.R = 0x00008606;    /* Conversion times for 32MHz ADClock */
-  ADC_0.MCR.B.NSTART = 1;       /* Trigger normal conversions for ADC0 */	
 }
 
 /**************************************************************

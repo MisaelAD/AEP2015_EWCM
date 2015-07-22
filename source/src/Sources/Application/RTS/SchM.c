@@ -5,7 +5,7 @@
 /*============================================================================*
 * C Source:         SchM.c
 * Instance:         RPL_1
-* %version:         1.2
+* %version:         1.3
 * %created_by:      Misael Alvarez Domínguez
 * %date_created:    Wednesday, July 8, 2015
 *=============================================================================*/
@@ -22,15 +22,14 @@
 /*  1.0      | 04/04/2014  |  Dummy functions              |Francisco Martinez*/
 /*  1.1      | 08/07/2015  |  Scheduler file & template    | Misael Alvarez   */
 /*  1.2      | 16/07/2015  |  Scheduler main functions     | Misael Alvarez   */
+/*  1.3      | 22/07/2015  |MISRA errors fixed			   | Misael Alvarez   */
 /*============================================================================*/
 
 /* Includes */
 /* -------- */
 #include "SchM.h"
-#include "GPIO.h"
 #include "PIT.h"
 #include "SchM_Tasks.h"
-//#include "MemAlloc.h"
 #include "SchM_Cfg.h"
 
 /* Functions macros, constants, types and datas         */
@@ -53,19 +52,16 @@
 /* Definition of RAM variables                          */
 /*======================================================*/ 
 /* BYTE RAM variables */
-static T_UBYTE rub_Tasks;
 
 /* WORD RAM variables */
 
 
 /* LONG and STRUCTURE RAM variables */
-SchControlType SchController = {
+static SchControlType SchController = {
 	0, TASK_BKG, SCH_UNINIT
 };
 
-SchTaskControlType ras_TasksController[3];
-
-extern const SchTaskDescriptorType *SchPtr[];
+extern SchTaskControlType ras_TasksController[];
 
 /*======================================================*/ 
 /* close variable declaration sections                  */
@@ -76,8 +72,8 @@ extern const SchTaskDescriptorType *SchPtr[];
 
 /* Private functions prototypes */
 /* ---------------------------- */
-
-
+static void SchM_Background(void);
+static void SchM_OSTick(void);
 
 /* Exported functions prototypes */
 /* ----------------------------- */
@@ -109,10 +105,10 @@ extern const SchTaskDescriptorType *SchPtr[];
  **************************************************************/
 void SchM_Background(void)
 {
+	static T_UBYTE rub_Tasks;
 	for(;;)	/* Scheduler endless loop */
 	{
-			/* Run ready tasks */
-		for(rub_Tasks=0; rub_Tasks<SchConfig.SchNumberOfTasks;  rub_Tasks++)
+		for(rub_Tasks=0; rub_Tasks<SchConfig.SchNumberOfTasks;  rub_Tasks++)    /* Run ready tasks */
 		{
 			if(ras_TasksController[rub_Tasks].SchTaskState == TASK_STATE_READY)
 			{
@@ -137,7 +133,7 @@ void SchM_Background(void)
  **************************************************************/
 void SchM_Init(const SchConfigType *SchM_Config)
 {
-	T_UBYTE i;	/* Index for initializing tasks */
+	T_UBYTE i;	/* Index for initializing(i) tasks */
 	SchController.SchStatus = SCH_INIT;
 	/* MemAlloc here */
 	for(i=0; i<SchM_Config->SchNumberOfTasks; i++)
@@ -186,7 +182,8 @@ void SchM_Start(void)
  **************************************************************/
 void SchM_OSTick(void)
 {
-	T_UBYTE t;	/* Pointer to check if task has to be activated */
+	extern const SchTaskDescriptorType *SchPtr[];/*MISRA error justify because size defined by the tasks descriptor table*/
+	T_UBYTE t;	/* Pointer to check if task(t) has to be activated */
 	SchController.SchCounter++;
 	for(t=0; t<SchConfig.SchNumberOfTasks; t++)
 	{
@@ -200,4 +197,3 @@ void SchM_OSTick(void)
 		}
 	}
 }
-

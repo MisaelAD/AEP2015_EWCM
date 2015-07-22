@@ -5,7 +5,7 @@
 /*============================================================================*
 * C Source:         scheduler_Cfg.c
 * Instance:         RPL_1
-* %version:         1.2
+* %version:         1.3
 * %created_by:      Misael Alvarez Domínguez
 * %date_created:    Monday, July 13, 2015
 *=============================================================================*/
@@ -23,6 +23,7 @@
 /*  1.1      | 13/07/2015  |File added to complete 		   | Misael AD        */
 /*        	 |   		   |scheduler structure 		   |  				  */
 /*  1.2      | 16/07/2015  |Scheduler config. constants    | Misael AD        */
+/*  1.3      | 22/07/2015  |MISRA issues fixed			   | Misael AD        */
 /*============================================================================*/
 
 /* Includes */
@@ -33,7 +34,6 @@
 /* Functions macros, constants, types and datas         */
 /* ---------------------------------------------------- */
 /* Functions macros */
-//void SchM_Cfg_GlobalPtr(void);
 /*==================================================*/ 
 /* Definition of constants                          */
 /*==================================================*/ 
@@ -44,7 +44,7 @@
 
 
 /* LONG and STRUCTURE constants */
-const SchTaskDescriptorType SchTaskDescConfig[] = 
+static const SchTaskDescriptorType SchTaskDescConfig[] = 
 {
 	  /* Offset / Mask / Task ID / Function Ptr */
 	{	0,	MASK_1P25MS,	TASK_3P125MS,	&SchM_Task1p25ms	},
@@ -61,17 +61,6 @@ const SchConfigType SchConfig =
 	SchTaskDescConfig
 };
 
-/*SchTaskDescriptorType *SchPtr[(sizeof(SchTaskDescConfig)/sizeof(SchTaskDescConfig[0]))];
-
-void SchM_Cfg_GlobalPtr(void)
-{
-	T_UBYTE Pindex;
-	for(Pindex=0; Pindex<SchConfig.SchNumberOfTasks; Pindex++)
-	{
-		SchPtr[Pindex] = (SchTaskDescriptorType*)&SchTaskDescConfig[Pindex];
-	}
-}*/
-
 const SchTaskDescriptorType *SchPtr[] = 
 {
 	&SchTaskDescConfig[0],
@@ -81,6 +70,8 @@ const SchTaskDescriptorType *SchPtr[] =
 	&SchTaskDescConfig[4],
 	&SchTaskDescConfig[5]
 };
+
+SchTaskControlType ras_TasksController[(sizeof(SchTaskDescConfig)/sizeof(SchTaskDescConfig[0]))];
 
 /*======================================================*/ 
 /* Definition of RAM variables                          */

@@ -111,16 +111,16 @@
  *  Return               :
  *  Critical/explanation :	No
  **************************************************************/
-void LED_WindowLifter(int8_t position)
+void LED_WindowLifter(T_SBYTE position)
 {
-	T_SBYTE i;
-	for(i=0; i<position; i++)	/*Turn on LEDs from 0 to actual position*/
+	T_SBYTE p;				 /*Pointer to control the LED bar position(p)*/
+	for(p=0; p<position; p++)	 /*Turn ON LEDs from 0 to actual position*/
 	{
-		SIU.GPDO[i].R = ON;
+		SIU.GPDO[p].R = ON;
 	}
-	for(i=i; i<10; i++)		/*Turn off LEDs from position to fully closed*/
+	for(p=p; p<10; p++)		/*Turn OFF LEDs from position to fully closed*/
 	{
-		SIU.GPDO[i].R = OFF;
+		SIU.GPDO[p].R = OFF;
 	}
 }
 

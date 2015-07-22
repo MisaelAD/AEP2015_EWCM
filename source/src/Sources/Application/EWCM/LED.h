@@ -68,7 +68,7 @@
 
 /* Exported functions prototypes and macros */
 /* ---------------------------------------- */
-void LED_WindowLifter(int8_t position);
+void LED_WindowLifter(T_SBYTE position);
 void LED_UP(void);
 void LED_DOWN(void);
 void LEDs_Off(void);
@@ -79,11 +79,6 @@ void LEDs_Off(void);
 /* Functions macros */
 
 /* Exported defines */
-	/* LED pins */
-#define LED1 68
-#define LED2 69
-#define LED3 70
-#define LED4 71
 
 #endif
 

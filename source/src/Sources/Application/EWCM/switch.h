@@ -78,14 +78,18 @@ T_UBYTE Switch_Combination(void);
 
 
 /* Exported defines */
+	/* Inputs state machine states */
 #define SWITCH_IDLE			0
 #define	SWITCH_VALID_DOWN	1
 #define	SWITCH_VALID_UP		2
 #define SWITCH_MOVING		3
-
+	/* Input pins */
 #define PINCH	64
 #define UP		66
 #define DOWN	67
+	/* Pin states */
+#define CLEAR			0
+#define SET_FLAG		1
 
 #endif
 

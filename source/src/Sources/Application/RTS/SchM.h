@@ -76,13 +76,10 @@ typedef struct {					/* New handling task structure definition */
 /* ---------------------------------------- */
 
 /* Functions prototypes */
-void Test(void);
-void SchM_Background(void);
-void scheduler_tick(void);
 void SchM_Init(const SchConfigType *SchM_Config);
-void SchM_Stop(void);
+void SchM_Stop(void);/*MISRA error, jutified because stop function could be called by external file, just as Start function*/
 void SchM_Start(void);
-void SchM_OSTick(void);
+
 
 /* Functions macros */
 
