@@ -5,7 +5,7 @@
 /*============================================================================*
 * C Source:         scheduler_Tasks.c
 * Instance:         RPL_1
-* %version:         1.6
+* %version:         1.7
 * %created_by:      Misael Alvarez Domínguez
 * %date_created:    Monday, July 13, 2015
 *=============================================================================*/
@@ -27,6 +27,7 @@
 /*  1.4      | 21/07/2015  |Operation modes issue fixed	   | Misael AD        */
 /*  1.5      | 22/07/2015  |AntiPinch functionality finish | Misael AD        */
 /*  1.6      | 22/07/2015  |MISRA issues fixing			   | Misael AD        */
+/*  1.7      | 28/07/2015  |Coments completed			   | Misael AD        */
 /*============================================================================*/
 
 /* Includes */
@@ -110,7 +111,7 @@ static void TriggerAntiPinch(void);
  **************************************************************/
 void VerifyPinch(void)
 {
-	if(rub_PinchTimer >= TICKS(4))
+	if(rub_PinchTimer >= TICKS(4))	/* Working in the 2.5ms task, 4 ticks means 10ms */
 	{
 		rub_PinchFlag = SET_FLAG;
 		rub_PinchTimer=	CLEAR;
@@ -178,11 +179,11 @@ void SchM_Task1p25ms(void)
 				if(Switch_Read(UP))
 				{
 					rwb_ValidationTime++;
-					if(rwb_ValidationTime == TICKS(8))
+					if(rwb_ValidationTime == TICKS(8))			/*10ms*/
 					{
 						rsb_WindowState=WINDOW_AUTO_UP;
 					}
-					else if(rwb_ValidationTime >= TICKS(400))
+					else if(rwb_ValidationTime >= TICKS(400))	/*500ms*/
 					{
 						rsb_WindowState=WINDOW_MANUAL_UP;
 						rsb_ButtonState=SWITCH_MOVING;
@@ -192,15 +193,15 @@ void SchM_Task1p25ms(void)
 						/* Do nothing */
 					}
 				}
-				else
+				else	/* Button released */
 				{
 					if((rwb_ValidationTime < TICKS(8)) || (rsb_WindowState == WINDOW_AUTO_UP))
 					{
-						rsb_ButtonState=SWITCH_IDLE;
+						rsb_ButtonState=SWITCH_IDLE;	/* One-touch or idle, keed reading inputs */
 					}
-					else
+					else	
 					{
-						rsb_ButtonState=SWITCH_MOVING;
+						rsb_ButtonState=SWITCH_MOVING;	/* Stay in manual mode */
 					}
 					rwb_ValidationTime=CLEAR;
 				}
@@ -209,11 +210,11 @@ void SchM_Task1p25ms(void)
 				if(Switch_Read(DOWN))
 				{
 					rwb_ValidationTime++;
-					if(rwb_ValidationTime == TICKS(8))
+					if(rwb_ValidationTime == TICKS(8))			/*10ms*/
 					{
 						rsb_WindowState=WINDOW_AUTO_DOWN;
 					}
-					else if(rwb_ValidationTime >= TICKS(400))
+					else if(rwb_ValidationTime >= TICKS(400))	/*500ms*/
 					{
 						rsb_WindowState=WINDOW_MANUAL_DOWN;
 						rsb_ButtonState=SWITCH_MOVING;
@@ -223,15 +224,15 @@ void SchM_Task1p25ms(void)
 						/* Do nothing */
 					}
 				}
-				else
+				else	/* Button released */
 				{
 					if((rwb_ValidationTime < TICKS(8)) || (rsb_WindowState == WINDOW_AUTO_DOWN))
 					{
-						rsb_ButtonState=SWITCH_IDLE;
+						rsb_ButtonState=SWITCH_IDLE;	/* One-touch or idle, keed reading inputs */
 					}
-					else
+					else	
 					{
-						rsb_ButtonState=SWITCH_MOVING;
+						rsb_ButtonState=SWITCH_MOVING;	/*Stay in manual mode*/
 					}
 					rwb_ValidationTime=CLEAR;
 				}
@@ -321,7 +322,7 @@ void SchM_Task40ms(void)
 		break;
 			
 		case WINDOW_AUTO_UP:
-				if(rub_Period==TICKS(10))
+				if(rub_Period==TICKS(10))	/*400ms*/
 				{
 					rub_Period=CLEAR;
 					windowlifter_UP();
@@ -334,7 +335,7 @@ void SchM_Task40ms(void)
 		break;
 			
 		case WINDOW_AUTO_DOWN:
-				if(rub_Period==TICKS(10))
+				if(rub_Period==TICKS(10))	/*400ms*/
 				{
 					rub_Period=CLEAR;
 					windowlifter_DOWN();
@@ -346,7 +347,7 @@ void SchM_Task40ms(void)
 		break;
 			
 		case WINDOW_MANUAL_UP:
-				if(rub_Period==TICKS(10))
+				if(rub_Period==TICKS(10))	/*400ms*/
 				{
 					rub_Period=CLEAR;
 					if(Switch_Read(UP))
@@ -366,7 +367,7 @@ void SchM_Task40ms(void)
 		break;
 			
 		case WINDOW_MANUAL_DOWN:
-				if(rub_Period==TICKS(10))
+				if(rub_Period==TICKS(10))	/*400ms*/
 				{
 					rub_Period=CLEAR;
 					if(Switch_Read(DOWN))
@@ -385,7 +386,7 @@ void SchM_Task40ms(void)
 		break;
 			
 		case PINCH_OPEN:
-				if(rub_Period==TICKS(10))
+				if(rub_Period==TICKS(10))	/*400ms*/
 				{
 					rub_Period=CLEAR;
 					windowlifter_PINCH();
@@ -397,7 +398,7 @@ void SchM_Task40ms(void)
 		break;
 			
 		case PINCH_IDLE:
-				if(rub_Period>=TICKS(125))
+				if(rub_Period>=TICKS(125))	/*5000ms*/
 				{
 					rub_Period=CLEAR;
 					rub_PinchFlag=CLEAR;
