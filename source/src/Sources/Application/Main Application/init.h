@@ -68,7 +68,7 @@
 
 /* Exported functions prototypes and macros */
 /* ---------------------------------------- */
-void disableWatchdog(void);
+void init_disableWatchdog(void);
 void init_OnBoardLEDs(void);
 void init_OnBoardPushButtons(void);
 void init_LEDBar(void);

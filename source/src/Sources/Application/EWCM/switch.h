@@ -68,7 +68,7 @@
 
 /* Exported functions prototypes and macros */
 /* ---------------------------------------- */
-T_UBYTE Switch_Read(T_UBYTE pin);
+T_UBYTE Switch_Read(T_UBYTE input);
 T_UBYTE Switch_Combination(void);
 
 /* Functions prototypes */

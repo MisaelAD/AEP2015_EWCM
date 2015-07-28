@@ -28,7 +28,8 @@ Link map of __start
      4] @22 (object,local) found in __ppc_eabi_init.o 
    2] main (func,global) found in main.o 
     3] initModesAndClock (func,global) found in pll.o 
-    3] disableWatchdog (func,global) found in init.o 
+    3] init_disableWatchdog (func,global) found in init.o 
+    3] init_OnBoardLEDs (func,global) found in init.o 
     3] init_OnBoardPushButtons (func,global) found in init.o 
     3] init_LEDBar (func,global) found in init.o 
     3] INTC_InitINTCInterrupts (func,global) found in IntcInterrupts.o 
@@ -91,7 +92,7 @@ Link map of __start
     3] .ivor_branch_table (section,local) found in ivor_branch_table.o 
     3] .ivor_branch_table.24 (notype,local) found in ivor_branch_table.o 
     3] .text (section,local) found in main.o 
-    3] .text.28 (notype,local) found in main.o 
+    3] .text.25 (notype,local) found in main.o 
     3] .text (section,local) found in pll.o 
     3] .text.23 (notype,local) found in pll.o 
     3] .text (section,local) found in PIT.o 
@@ -103,7 +104,7 @@ Link map of __start
     3] .text (section,local) found in LED.o 
     3] .text.34 (notype,local) found in LED.o 
     3] .text (section,local) found in switch.o 
-    3] .text.16 (notype,local) found in switch.o 
+    3] .text.15 (notype,local) found in switch.o 
     3] .text (section,local) found in windowlifter.o 
     3] .text.27 (notype,local) found in windowlifter.o 
     3] .text (section,local) found in init.o 
@@ -200,60 +201,60 @@ Link map of __start
   000000c8 000030 000020c8 00000838  2 INTC_InstallINTCInterruptHandler 	IntcInterrupts.o 
   000000f8 000018 000020f8 00000868  2 enableIrq 	IntcInterrupts.o 
   00000110 000030 00002110 00000880  2 INTC_InitINTCInterrupts 	IntcInterrupts.o 
-  00000140 000036 00002140 000008b0  1 .text 	main.o 
-  00000140 000036 00002140 000008b0  2 main 	main.o 
-  00000176 000000 00002176 000008e6  1 .text.28 	main.o 
-  00000176 000088 00002176 000008e6  1 .text 	pll.o 
-  00000176 000088 00002176 000008e6  2 initModesAndClock 	pll.o 
+  00000140 000038 00002140 000008b0  1 .text 	main.o 
+  00000140 000038 00002140 000008b0  2 main 	main.o 
+  00000178 000000 00002178 000008e8  1 .text.25 	main.o 
+  00000178 000088 00002178 000008e8  1 .text 	pll.o 
+  00000178 000088 00002178 000008e8  2 initModesAndClock 	pll.o 
   UNUSED   00000c ........ ........    initPeriClkGen pll.o 
-  000001fe 000000 000021fe 0000096e  1 .text.23 	pll.o 
-  000001fe 0000d4 000021fe 0000096e  1 .text 	PIT.o 
-  000001fe 00000a 000021fe 0000096e  2 PIT_device_init 	PIT.o 
-  00000208 00005e 00002208 00000978  2 PIT_channel_configure 	PIT.o 
-  00000266 000018 00002266 000009d6  2 PIT_channel_start 	PIT.o 
+  00000200 000000 00002200 00000970  1 .text.23 	pll.o 
+  00000200 0000d4 00002200 00000970  1 .text 	PIT.o 
+  00000200 00000a 00002200 00000970  2 PIT_device_init 	PIT.o 
+  0000020a 00005e 0000220a 0000097a  2 PIT_channel_configure 	PIT.o 
+  00000268 000018 00002268 000009d8  2 PIT_channel_start 	PIT.o 
   UNUSED   000018 ........ ........    PIT_channel_stop PIT.o 
-  0000027e 000054 0000227e 000009ee  2 PIT_channel_0_isr 	PIT.o 
-  000002d2 000000 000022d2 00000a42  1 .text.44 	PIT.o 
-  000002d2 0001b6 000022d2 00000a42  1 .text 	SchM.o 
-  000002d2 000088 000022d2 00000a42  2 SchM_Background 	SchM.o 
-  0000035a 000088 0000235a 00000aca  2 SchM_Init 	SchM.o 
+  00000280 000054 00002280 000009f0  2 PIT_channel_0_isr 	PIT.o 
+  000002d4 000000 000022d4 00000a44  1 .text.44 	PIT.o 
+  000002d4 0001b6 000022d4 00000a44  1 .text 	SchM.o 
+  000002d4 000088 000022d4 00000a44  2 SchM_Background 	SchM.o 
+  0000035c 000088 0000235c 00000acc  2 SchM_Init 	SchM.o 
   UNUSED   000020 ........ ........    SchM_Stop SchM.o 
-  000003e2 000028 000023e2 00000b52  2 SchM_Start 	SchM.o 
-  0000040a 00007e 0000240a 00000b7a  2 SchM_OSTick 	SchM.o 
-  00000488 000000 00002488 00000bf8  1 .text.78 	SchM.o 
-  00000488 0002a0 00002488 00000bf8  1 .text 	SchM_Tasks.o 
-  00000488 000016 00002488 00000bf8  2 VerifyPinch 	SchM_Tasks.o 
-  0000049e 000022 0000249e 00000c0e  2 TriggerAntiPinch 	SchM_Tasks.o 
-  000004c0 000124 000024c0 00000c30  2 SchM_Task1p25ms 	SchM_Tasks.o 
-  000005e4 00003e 000025e4 00000d54  2 SchM_Task2p5ms 	SchM_Tasks.o 
-  00000622 000002 00002622 00000d92  2 SchM_Task5ms 	SchM_Tasks.o 
-  00000624 000002 00002624 00000d94  2 SchM_Task10ms 	SchM_Tasks.o 
-  00000626 00001a 00002626 00000d96  2 SchM_Task20ms 	SchM_Tasks.o 
-  00000640 0000e8 00002640 00000db0  2 SchM_Task40ms 	SchM_Tasks.o 
-  00000728 000000 00002728 00000e98  1 .text.127 	SchM_Tasks.o 
-  00000728 0000ba 00002728 00000e98  1 .text 	LED.o 
-  00000728 000078 00002728 00000e98  2 LED_WindowLifter 	LED.o 
-  000007a0 000016 000027a0 00000f10  2 LED_UP 	LED.o 
-  000007b6 000016 000027b6 00000f26  2 LED_DOWN 	LED.o 
-  000007cc 000016 000027cc 00000f3c  2 LEDs_Off 	LED.o 
-  000007e2 000000 000027e2 00000f52  1 .text.34 	LED.o 
-  000007e2 00004e 000027e2 00000f52  1 .text 	switch.o 
-  000007e2 000012 000027e2 00000f52  2 Switch_Read 	switch.o 
-  000007f4 00003c 000027f4 00000f64  2 Switch_Combination 	switch.o 
-  00000830 000000 00002830 00000fa0  1 .text.16 	switch.o 
-  00000830 0000ae 00002830 00000fa0  1 .text 	windowlifter.o 
-  00000830 00003a 00002830 00000fa0  2 windowlifter_UP 	windowlifter.o 
-  0000086a 00003a 0000286a 00000fda  2 windowlifter_DOWN 	windowlifter.o 
-  000008a4 00003a 000028a4 00001014  2 windowlifter_PINCH 	windowlifter.o 
-  000008de 000000 000028de 0000104e  1 .text.27 	windowlifter.o 
-  000008de 00008c 000028de 0000104e  1 .text 	init.o 
-  000008de 000032 000028de 0000104e  2 disableWatchdog 	init.o 
-  UNUSED   00002a ........ ........    init_OnBoardLEDs init.o 
-  00000910 00002a 00002910 00001080  2 init_OnBoardPushButtons 	init.o 
-  0000093a 000030 0000293a 000010aa  2 init_LEDBar 	init.o 
-  0000096a 000000 0000296a 000010da  1 .text.27 	init.o 
-  0000096a 000064 0000296a 000010da  1 .text 	Runtime.PPCEABI.VS.UC.a runtime.o
-  0000096a 00004a 0000296a 000010da  2 __save_gpr 	Runtime.PPCEABI.VS.UC.a runtime.o
+  000003e4 000028 000023e4 00000b54  2 SchM_Start 	SchM.o 
+  0000040c 00007e 0000240c 00000b7c  2 SchM_OSTick 	SchM.o 
+  0000048a 000000 0000248a 00000bfa  1 .text.78 	SchM.o 
+  0000048a 0002a0 0000248a 00000bfa  1 .text 	SchM_Tasks.o 
+  0000048a 000016 0000248a 00000bfa  2 VerifyPinch 	SchM_Tasks.o 
+  000004a0 000022 000024a0 00000c10  2 TriggerAntiPinch 	SchM_Tasks.o 
+  000004c2 000124 000024c2 00000c32  2 SchM_Task1p25ms 	SchM_Tasks.o 
+  000005e6 00003e 000025e6 00000d56  2 SchM_Task2p5ms 	SchM_Tasks.o 
+  00000624 000002 00002624 00000d94  2 SchM_Task5ms 	SchM_Tasks.o 
+  00000626 000002 00002626 00000d96  2 SchM_Task10ms 	SchM_Tasks.o 
+  00000628 00001a 00002628 00000d98  2 SchM_Task20ms 	SchM_Tasks.o 
+  00000642 0000e8 00002642 00000db2  2 SchM_Task40ms 	SchM_Tasks.o 
+  0000072a 000000 0000272a 00000e9a  1 .text.127 	SchM_Tasks.o 
+  0000072a 0000ba 0000272a 00000e9a  1 .text 	LED.o 
+  0000072a 000078 0000272a 00000e9a  2 LED_WindowLifter 	LED.o 
+  000007a2 000016 000027a2 00000f12  2 LED_UP 	LED.o 
+  000007b8 000016 000027b8 00000f28  2 LED_DOWN 	LED.o 
+  000007ce 000016 000027ce 00000f3e  2 LEDs_Off 	LED.o 
+  000007e4 000000 000027e4 00000f54  1 .text.34 	LED.o 
+  000007e4 000048 000027e4 00000f54  1 .text 	switch.o 
+  000007e4 000012 000027e4 00000f54  2 Switch_Read 	switch.o 
+  000007f6 000036 000027f6 00000f66  2 Switch_Combination 	switch.o 
+  0000082c 000000 0000282c 00000f9c  1 .text.15 	switch.o 
+  0000082c 0000ae 0000282c 00000f9c  1 .text 	windowlifter.o 
+  0000082c 00003a 0000282c 00000f9c  2 windowlifter_UP 	windowlifter.o 
+  00000866 00003a 00002866 00000fd6  2 windowlifter_DOWN 	windowlifter.o 
+  000008a0 00003a 000028a0 00001010  2 windowlifter_PINCH 	windowlifter.o 
+  000008da 000000 000028da 0000104a  1 .text.27 	windowlifter.o 
+  000008da 0000b6 000028da 0000104a  1 .text 	init.o 
+  000008da 000032 000028da 0000104a  2 init_disableWatchdog 	init.o 
+  0000090c 00002a 0000290c 0000107c  2 init_OnBoardLEDs 	init.o 
+  00000936 00002a 00002936 000010a6  2 init_OnBoardPushButtons 	init.o 
+  00000960 000030 00002960 000010d0  2 init_LEDBar 	init.o 
+  00000990 000000 00002990 00001100  1 .text.27 	init.o 
+  00000990 000064 00002990 00001100  1 .text 	Runtime.PPCEABI.VS.UC.a runtime.o
+  00000990 00004a 00002990 00001100  2 __save_gpr 	Runtime.PPCEABI.VS.UC.a runtime.o
   UNUSED   000000 ........ ........    _savegpr_14 Runtime.PPCEABI.VS.UC.a runtime.o
   UNUSED   000000 ........ ........    _save32gpr_14 Runtime.PPCEABI.VS.UC.a runtime.o
   UNUSED   000000 ........ ........    _savegpr_15 Runtime.PPCEABI.VS.UC.a runtime.o
@@ -286,7 +287,7 @@ Link map of __start
   UNUSED   000000 ........ ........    _save32gpr_28 Runtime.PPCEABI.VS.UC.a runtime.o
   UNUSED   000000 ........ ........    _savegpr_29 Runtime.PPCEABI.VS.UC.a runtime.o
   UNUSED   000000 ........ ........    _save32gpr_29 Runtime.PPCEABI.VS.UC.a runtime.o
-  000009aa 000000 000029aa 0000111a    _savegpr_30 (entry of __save_gpr) 	Runtime.PPCEABI.VS.UC.a runtime.o
+  000009d0 000000 000029d0 00001140    _savegpr_30 (entry of __save_gpr) 	Runtime.PPCEABI.VS.UC.a runtime.o
   UNUSED   000000 ........ ........    _save32gpr_30 Runtime.PPCEABI.VS.UC.a runtime.o
   UNUSED   000000 ........ ........    _savegpr_31 Runtime.PPCEABI.VS.UC.a runtime.o
   UNUSED   000000 ........ ........    _save32gpr_31 Runtime.PPCEABI.VS.UC.a runtime.o
@@ -327,11 +328,11 @@ Link map of __start
   UNUSED   000000 ........ ........    _rest32gpr_30 Runtime.PPCEABI.VS.UC.a runtime.o
   UNUSED   000000 ........ ........    _restgpr_31 Runtime.PPCEABI.VS.UC.a runtime.o
   UNUSED   000000 ........ ........    _rest32gpr_31 Runtime.PPCEABI.VS.UC.a runtime.o
-  000009b4 000008 000029b4 00001124  2 __restore_frame_and_exit 	Runtime.PPCEABI.VS.UC.a runtime.o
-  000009b6 000000 000029b6 00001126    __finish_restore_frame_and_exit2 (entry of __restore_frame_and_exit) 	Runtime.PPCEABI.VS.UC.a runtime.o
-  000009bc 00000a 000029bc 0000112c  2 __restore_gpr_31_exit 	Runtime.PPCEABI.VS.UC.a runtime.o
-  000009c2 000000 000029c2 00001132    __finish_restore_frame_and_exit (entry of __restore_gpr_31_exit) 	Runtime.PPCEABI.VS.UC.a runtime.o
-  000009c6 000008 000029c6 00001136  2 __restore_gpr_30_exit 	Runtime.PPCEABI.VS.UC.a runtime.o
+  000009da 000008 000029da 0000114a  2 __restore_frame_and_exit 	Runtime.PPCEABI.VS.UC.a runtime.o
+  000009dc 000000 000029dc 0000114c    __finish_restore_frame_and_exit2 (entry of __restore_frame_and_exit) 	Runtime.PPCEABI.VS.UC.a runtime.o
+  000009e2 00000a 000029e2 00001152  2 __restore_gpr_31_exit 	Runtime.PPCEABI.VS.UC.a runtime.o
+  000009e8 000000 000029e8 00001158    __finish_restore_frame_and_exit (entry of __restore_gpr_31_exit) 	Runtime.PPCEABI.VS.UC.a runtime.o
+  000009ec 000008 000029ec 0000115c  2 __restore_gpr_30_exit 	Runtime.PPCEABI.VS.UC.a runtime.o
   UNUSED   000008 ........ ........    __restore_gpr_29_exit Runtime.PPCEABI.VS.UC.a runtime.o
   UNUSED   000008 ........ ........    __restore_gpr_28_exit Runtime.PPCEABI.VS.UC.a runtime.o
   UNUSED   000008 ........ ........    __restore_gpr_27_exit Runtime.PPCEABI.VS.UC.a runtime.o
@@ -375,18 +376,18 @@ Link map of __start
   UNUSED   00001a ........ ........    __shl2i Runtime.PPCEABI.VS.UC.a runtime.o
   UNUSED   00001a ........ ........    __shr2u Runtime.PPCEABI.VS.UC.a runtime.o
   UNUSED   00001c ........ ........    __shr2i Runtime.PPCEABI.VS.UC.a runtime.o
-  000009ce 000000 000029ce 0000113e  1 .text.205 	Runtime.PPCEABI.VS.UC.a runtime.o
+  000009f4 000000 000029f4 00001164  1 .text.205 	Runtime.PPCEABI.VS.UC.a runtime.o
 
 
 .rodata section layout
   Starting        Virtual  File
   address  Size   address  offset
   ---------------------------------
-  00000000 00000c 000029d0 00001140  1 .rodata 	__ppc_eabi_init.o 
-  00000000 00000c 000029d0 00001140  4 @22 	__ppc_eabi_init.o 
-  0000000c 000004 000029e0 00001150  8 *fill*
-  00000010 000030 000029e0 00001150  1 .rodata 	SchM_Cfg.o 
-  00000010 000030 000029e0 00001150  8 SchTaskDescConfig 	SchM_Cfg.o 
+  00000000 00000c 000029f8 00001168  1 .rodata 	__ppc_eabi_init.o 
+  00000000 00000c 000029f8 00001168  4 @22 	__ppc_eabi_init.o 
+  0000000c 000004 00002a08 00001178  8 *fill*
+  00000010 000030 00002a08 00001178  1 .rodata 	SchM_Cfg.o 
+  00000010 000030 00002a08 00001178  8 SchTaskDescConfig 	SchM_Cfg.o 
 
 
 .ctors section layout
@@ -488,25 +489,25 @@ Memory map:
              .init_vle 000000c4 000001f4 000003cc 000000c4 000000c4         12
     .ivor_branch_table 00001000 00000100 000005c0 00001000 00001000         37
   .__exception_handlers 00001100 000000a8 000006c0 00001100 00001100         50
-             .text_vle 00002000 000009d0 00000770 00002000 00002000         59
-               .rodata 000029d0 00000040 00001140 000029d0 000029d0        185
-                .ctors 00002a10 00000000 00001180 00002a10 00002a10          0
-                .dtors 00002a10 00000000 00001180 00002a10 00002a10          0
-                 extab 00002a10 00000000 00001180 00002a10 00002a10          0
-            extabindex 00002a10 00000000 00001180 00002a10 00002a10          0
+             .text_vle 00002000 000009f4 00000770 00002000 00002000         59
+               .rodata 000029f8 00000040 00001168 000029f8 000029f8        187
+                .ctors 00002a38 00000000 000011a8 00002a38 00002a38          0
+                .dtors 00002a38 00000000 000011a8 00002a38 00002a38          0
+                 extab 00002a38 00000000 000011a8 00002a38 00002a38          0
+            extabindex 00002a38 00000000 000011a8 00002a38 00002a38          0
   .__uninitialized_intc_handlertable 40000000 00001340 00001800 00003000 00003000          0
-                 .data 40001340 00000034 00001800 00003000 00003000        189
-                .sdata 40001378 00000004 00001838 00003038 00003038        192
+                 .data 40001340 00000034 00001800 00003000 00003000        191
+                .sdata 40001378 00000004 00001838 00003038 00003038        194
                  .sbss 40001380 00000010 00001840 00003040 00003040          0
-               .sdata2 40001390 00000008 00001840 00003040 00003040        193
+               .sdata2 40001390 00000008 00001840 00003040 00003040        195
                 .sbss2 40001398 00000000 00001848 00003048 00003048          0
                   .bss 40001398 00000050 00001848 00003048 00003048          0
-      .PPC.EMB.apuinfo 00007ae8 00000000 00009330 0000ab30 0000ab30          0
+      .PPC.EMB.apuinfo 00007b5c 00000000 000093b0 0000aba4 0000aba4          0
          .debug_abbrev          0000014f 00001848
-           .debug_info          000024a4 00001997
-           .debug_line          000037ab 00003e3b
-            .debug_loc          0000066a 000075e6
-       .debug_pubnames          000005f0 00007c50
+           .debug_info          000024c4 00001997
+           .debug_line          000037ad 00003e5b
+            .debug_loc          0000067d 00007608
+       .debug_pubnames          0000060a 00007c85
 
 
 Linker generated symbols:
@@ -532,22 +533,22 @@ _f___exception_handlers_rom 00001100
                   _e_text 00002000
               _f_text_vle 00002000
           _f_text_vle_rom 00002000
-              _e_text_vle 000029d0
-                _f_rodata 000029d0
-            _f_rodata_rom 000029d0
-                _e_rodata 00002a10
-                 _f_ctors 00002a10
-             _f_ctors_rom 00002a10
-                 _e_ctors 00002a10
-                 _f_dtors 00002a10
-             _f_dtors_rom 00002a10
-                 _e_dtors 00002a10
-                  _fextab 00002a10
-              _fextab_rom 00002a10
-                  _eextab 00002a10
-             _fextabindex 00002a10
-         _fextabindex_rom 00002a10
-             _eextabindex 00002a10
+              _e_text_vle 000029f4
+                _f_rodata 000029f8
+            _f_rodata_rom 000029f8
+                _e_rodata 00002a38
+                 _f_ctors 00002a38
+             _f_ctors_rom 00002a38
+                 _e_ctors 00002a38
+                 _f_dtors 00002a38
+             _f_dtors_rom 00002a38
+                 _e_dtors 00002a38
+                  _fextab 00002a38
+              _fextab_rom 00002a38
+                  _eextab 00002a38
+             _fextabindex 00002a38
+         _fextabindex_rom 00002a38
+             _eextabindex 00002a38
 _f___uninitialized_intc_handlertable 40000000
 _e___uninitialized_intc_handlertable 40001340
                   _f_data 40001340
@@ -569,7 +570,7 @@ _e___uninitialized_intc_handlertable 40001340
                _stack_end 40013000
                _heap_addr 40012000
                 _heap_end 40013000
-             _nbfunctions 00000038
+             _nbfunctions 00000039
            SIZEOF_HEADERS 00000320
                _SDA_BASE_ 40009378
               _SDA2_BASE_ 40009390

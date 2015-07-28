@@ -9,8 +9,8 @@
 */
 /*******************************************************************************/
 
-#ifndef __MCU_DERIVATIVE_H
-#define __MCU_DERIVATIVE_H
+#ifndef MCU_DERIVATIVE_H
+#define MCU_DERIVATIVE_H
 
 /*-- Includes ----------------------------------------------------------------*/
 
@@ -26,7 +26,7 @@
 
 /*-- Macros ------------------------------------------------------------------*/
 
-#define __MCU_derivative		"MPC5606B.h"
+#define MCU_derivative		"MPC5606B.h"
 
 /*-- Function Prototypes -----------------------------------------------------*/
 

@@ -106,7 +106,7 @@ static void SchM_OSTick(void);
 void SchM_Background(void)
 {
 	static T_UBYTE rub_Tasks;
-	for(;;)	/* Scheduler endless loop */
+	for(;;)/* Scheduler endless loop */
 	{
 		for(rub_Tasks=0; rub_Tasks<SchConfig.SchNumberOfTasks;  rub_Tasks++)    /* Run ready tasks */
 		{
@@ -170,7 +170,7 @@ void SchM_Start(void)
 	SchController.SchStatus = SCH_RUNNING;
 	PIT_channel_start(PIT_CHANNEL_0);
     enableIrq();			/* Enable External Interrupts*/
-	SchM_Background();		/* Do nothing */
+	SchM_Background();		/* Scheduler controls hardware */
 }
 
 /**************************************************************

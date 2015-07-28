@@ -23,8 +23,8 @@
 /*  1.1      | 13/07/2015 | No more use of task struct    | Misael AD     	  */
 /*============================================================================*/
 
-#ifndef _WINDOWLIFTER_H        /*prevent duplicated includes*/
-#define _WINDOWLIFTER_H
+#ifndef WINDOWLIFTER_H        /*prevent duplicated includes*/
+#define WINDOWLIFTER_H
 
 /* Includes */
 /* -------- */

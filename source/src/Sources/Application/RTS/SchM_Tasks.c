@@ -315,7 +315,7 @@ void SchM_Task40ms(void)
 	switch(rsb_WindowState)
 	{
 		case WINDOW_IDLE:
-				rub_Period=0;
+				rub_Period=CLEAR;
 				rsb_ButtonState=SWITCH_IDLE;
 				LEDs_Off();
 		break;

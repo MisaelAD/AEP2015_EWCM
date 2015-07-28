@@ -102,9 +102,9 @@
  *  Return               :	Returns input pin value
  *  Critical/explanation :	No
  **************************************************************/
-T_UBYTE Switch_Read(T_UBYTE pin)
+T_UBYTE Switch_Read(T_UBYTE input)
 {
-	return SIU.GPDI[pin].R;
+	return SIU.GPDI[input].R;
 }
 
 /**************************************************************
@@ -116,7 +116,5 @@ T_UBYTE Switch_Read(T_UBYTE pin)
  **************************************************************/
 T_UBYTE Switch_Combination(void)
 {
-	T_UBYTE SC;
-	SC = (Switch_Read(UP)) ^ (Switch_Read(DOWN));
-	return !SC;
+	return !( (Switch_Read(UP)) ^ (Switch_Read(DOWN)) );
 }

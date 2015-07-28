@@ -1,7 +1,4 @@
 
-#include "MCU_derivative.h"
-
-
 /** GPIO funtion prototypes  */
 #include	"init.h"
 #include    "PIT.h"
@@ -33,15 +30,18 @@
 ******************************************************************************************************/
 
 /*~~~~~~~ Main Code ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-int main(void) 
+void main(void) 
 
 {
 	initModesAndClock();
 	
 	/* Disable Watchdog */
-	disableWatchdog();
+	init_disableWatchdog();
 	
 	/*Initialize LEDs on TRK-MPC560xB board */
+	init_OnBoardLEDs();
+	
+	/*Initialize the On-Board push buttons*/
 	init_OnBoardPushButtons();
 	
 	/*Initialize external LED bar pins*/
@@ -57,11 +57,6 @@ int main(void)
     
     /*Hand control to the scheduler*/
     SchM_Start();
-	
-	for (;;) 
-	{
-
-	}
 }
 
 /*~~~~~~~ End of Main Code ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/

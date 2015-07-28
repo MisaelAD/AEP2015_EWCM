@@ -5,7 +5,7 @@
 /*============================================================================*
 * C Source:         init.c
 * Instance:         RPL_1
-* %version:         1.1
+* %version:         1.2
 * %created_by:      Misael Alvarez Domínguez
 * %date_created:    Monday, July 13, 2015
 *=============================================================================*/
@@ -21,6 +21,7 @@
 /*----------------------------------------------------------------------------*/
 /*  1.0      | DD/MM/YYYY  |                               | Mr. Template     */
 /*  1.1      | 13/07/2015  |C file template implementation | Misael AD        */
+/*  1.2      | 22/07/2015  |MISRA issues fixed			   | Misael AD        */
 /*============================================================================*/
 
 /* Includes */
@@ -61,9 +62,9 @@
 /*======================================================*/ 
 
 /* Private defines */
-#define Output (uint16_t)0x200	//PCR_GPIO_OutputConfiguration
-#define Input  (uint16_t)0x100	//PCR_GPIO_InputConfiguration
-#define Analog (uint16_t)0x2000	//PCR_AnalogConfiguration
+#define Output (uint16_t)0x200	/*PCR_GPIO_OutputConfiguration*/
+#define Input  (uint16_t)0x100	/*PCR_GPIO_InputConfiguration*/
+#define Analog (uint16_t)0x2000	/*PCR_AnalogConfiguration*/
 
 	/* Push buttons */
 #define PortE0 SIU.PCR[64].R
@@ -116,11 +117,11 @@
  *  Return               :
  *  Critical/explanation :  No
  **************************************************************/
-void disableWatchdog(void) 
+void init_disableWatchdog(void) 
 {
-  SWT.SR.R = 0x0000C520;     /* Write keys to clear soft lock bit */
-  SWT.SR.R = 0x0000D928; 
-  SWT.CR.R = 0x8000010A;     /* Clear watchdog enable (WEN) */
+  SWT.SR.R = 0x0000C520u;     /* Write keys to clear soft lock bit */
+  SWT.SR.R = 0x0000D928u; 
+  SWT.CR.R = 0x8000010Au;     /* Clear watchdog enable (WEN) */
 }
 
 /**************************************************************
